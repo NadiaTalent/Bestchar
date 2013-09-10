@@ -1,0 +1,6 @@
+Bestchar, Table 5 char 2
+a/b/c/d/e/f/g/h/i
+b/c/d/e/f/g/h
+c/d/e/f/g
+d/e/f
+e
