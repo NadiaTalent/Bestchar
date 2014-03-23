@@ -48,7 +48,7 @@
 #  set up to use real numbers with two decimal places, as well as logarithms
 #------------------------------------------------------------------------------------------------------
 from decimal import *
-getcontext().prec=2
+getcontext().prec=16
 import math
 
 #------------------------------------------------------------------------------------------------------
@@ -109,13 +109,13 @@ for taxon2 in totaltaxa:
             str(float(1)/float(numstates))+'\n')
       else: # this state was previously found
          index2=statelist.index(l)
-         detailfile.write('incrementing at index2='+str(index2)+' (state='+l+')\n')
          temp=listofstatecounts[index2]
+         detailfile.write('incrementing at index2='+str(index2)+' (state='+l+') count was'+temp+'\n')
          listofstatecounts[index2]=temp+1 # increment the counter of taxa that have this state
-         temp=listofsigmas[index2]
-         listofsigmas[index2]=temp+float(1)/float(numstates) # add 1/(the number of states for that taxon)
+         temp2=listofsigmas[index2]+float(1)/float(numstates) # add 1/(the number of states for that taxon)
+         listofsigmas[index2]=temp2
          detailfile.write('numstates='+str(numstates)+' added='+str(float(1)/float(numstates))+
-            ' to sigma\n')
+            ' to sigma giving'+temp2+'\n')
 
 detailfile.write('\nstatelist='+repr(statelist)+'\n')
 detailfile.write('listofstatecounts ='+str(listofstatecounts)+'\n')
@@ -149,19 +149,17 @@ for m in listofstatecounts:
    H=H+n1*m3 #base numtaxa logarithms (to normalize the range as the number of taxa (t) decreases)
    detailfile.write('H='+str(H)+'\n\n')
 
-getcontext().prec=10
 IntKeyH1=-Decimal(str(IntKeyH)).quantize(Decimal('.01'), rounding=ROUND_HALF_DOWN)
 detailfile.write('Results to two decimal places:\n')
 detailfile.write('Intkey-style information coefficient='+str(IntKeyH1)+'\n')
 logfile.write('Results to two decimal places:\n')
 logfile.write('Intkey-style information coefficient='+str(IntKeyH1)+'\n')
-getcontext().prec=2
 
-PankhurstH1=-Decimal(str(PankhurstH))
+PankhurstH1=-Decimal(str(PankhurstH)).quantize(Decimal('.01'), rounding=ROUND_HALF_DOWN)
 detailfile.write("Pankhurst's information coefficient="+str(PankhurstH1)+'\n')
 logfile.write("Pankhurst's information coefficient="+str(PankhurstH1)+'\n')
 
-H1=-Decimal(str(H))
+H1=-Decimal(str(H)).quantize(Decimal('.01'), rounding=ROUND_HALF_DOWN)
 detailfile.write('Normalized information coefficient='+str(H1)+'\n\n')
 logfile.write('Normalized information coefficient='+str(H1)+'\n\n')
 
@@ -184,7 +182,7 @@ numdiffs=0
 Jaccard_similarity=float(0)
 
 while len(totaltaxa)>0: # no need to match anything with the last taxon in the queue, but see 'else' suite
-   detailfile.write('remainingtaxa at start of while loop='+repr(totaltaxa)+'\n')
+   detailfile.write('remaining taxa at start of while loop='+repr(totaltaxa)+'\n')
    for taxon in totaltaxa:
 #------------------------------------------------------------------------------------------------------
 #  The separation coefficient counts only taxa that are completely separable, so if any element of
@@ -226,7 +224,8 @@ else:
 #------------------------------------------------------------------------------------------------------
 separation_coefficient=float(numdiffs)/float(total_num_pairs)
 detailfile.write('\nSeparation coefficient='+str(separation_coefficient)+'\n')
-logfile.write('Separation coefficient='+str(separation_coefficient)+'\n')
+separation_coefficient1=-Decimal(str(separation_coefficient)).quantize(Decimal('.01'), rounding=ROUND_HALF_DOWN)
+logfile.write('Separation coefficient='+str(separation_coefficient1)+'\n')
 
 #------------------------------------------------------------------------------------------------------
 #  Average pairwise Jaccard distance
@@ -234,7 +233,8 @@ logfile.write('Separation coefficient='+str(separation_coefficient)+'\n')
 detailfile.write('Jaccard similarity='+str(Jaccard_similarity)+'\n')
 Jaccard_distance=1-(Jaccard_similarity/float(total_num_pairs))
 detailfile.write('Average pairwise Jaccard distance='+str(Jaccard_distance))
-logfile.write('Average pairwise Jaccard distance='+str(Jaccard_distance))
+Jaccard_distance1=-Decimal(str(Jaccard_distance)).quantize(Decimal('.01'), rounding=ROUND_HALF_DOWN)
+logfile.write('Average pairwise Jaccard distance='+str(Jaccard_distance1))
 
 logfile.write('\n')
 
