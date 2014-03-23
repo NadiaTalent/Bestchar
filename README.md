@@ -11,11 +11,14 @@ as per http://creativecommons.org/publicdomain/zero/1.0/.
 
 The sample code is a stand-alone Bestchar program for categorical data; conversions 
 of the equivalent numeric-range data are not included, but are discussed in the 
-manuscript. It calculates a variety of coefficients for a single character. Two 
-versions are given, one in the Python language (http://www.python.org/), and the 
-same translated into the R language (http://www.r-project.org/).
+manuscript. It calculates a variety of coefficients for a single character. Three 
+versions are given, one in the Python language (http://www.python.org/), the 
+same translated into the R language (http://www.r-project.org/), and source code for
+a Java applet (http://www.oracle.com/technetwork/documentation/index.html#java).
 
-The three files are:
+The six files are:
 * Bestchar.py Python code
 * Bestchar.R R code
+* Bestchar.java Java source code
+* A screen image of the Java applet after execution
 * charinput.txt an example input file that corresponds to table 5 char 2 in the manuscript.
